@@ -1,5 +1,6 @@
 import numpy as np
 import cv2 as cv
+from src.localize import *
 
 async def display_and_queue_images(track, queue):
     """
@@ -12,10 +13,18 @@ async def display_and_queue_images(track, queue):
     frame = None
 
     while True:
-        frame = await track.recv()
-        media = frame.to_ndarray(format="bgr24")
+        media = await track.recv()
+        frame = media.to_ndarray(format="bgr24")
         # queue.put(media)
-        cv.imshow("image", media)
+
+        #plot contour
+        center, radius = find_contour(frame)
+        x = int(center[0])
+        y = int(center[1])
+        r = int(radius)
+        cv.circle(frame, (x,y), r, (0, 0, 255), 2)
+
+        cv.imshow("image", frame)
         if cv.waitKey(1) & 0xFF == ord('q'):
             break
 
