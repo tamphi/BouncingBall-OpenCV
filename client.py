@@ -59,8 +59,13 @@ if __name__ == "__main__":
     # mp.set_start_method('spawn')
     duration = 10 # second
     n_frame = 30 # number of frames of BallVideoStreamTrack class
+    q_size = n_frame * duration
     queue = None
-    # queue = mp.Queue(duration*n_frame)
+    # queue = mp.Queue()
+
+    #start process_a 
+    process_a = mp.Process()
+    
     #send answer
     coro = run_answer(pc, signaling, queue)
 
