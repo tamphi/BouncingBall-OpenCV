@@ -1,7 +1,7 @@
 Video transfer server and object tracking client
 ================================================
 
-This repo illustrates sever sending a video of a bouncing ball to client and client responding with the predicted location of the moving ball using OpenCV.
+This repo illustrates server sending a video of a bouncing ball to client and client responding with the predicted location of the moving ball using `OpenCV` and `aiortc`.
 
 Running
 -------
