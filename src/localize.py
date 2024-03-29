@@ -44,7 +44,7 @@ def find_contour(frame):
 
 async def mp_find_contour(queue, mpX, mpY):
     """
-    Multiprocess function to find and update ball position (x,y) for each frame in queue
+    Multiprocess routine call to find and update ball position (x,y) for each frame in queue
     """
     while True:
         executor = ProcessPoolExecutor(max_workers=1)
