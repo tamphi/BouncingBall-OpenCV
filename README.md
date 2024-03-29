@@ -43,7 +43,9 @@ test_media.py -- ensure ball radius, (x,y) coordinates, screen width and heights
 
 test_localize.py -- ensure localization percentage error of video frame are less than 10%
 
-To run test `pytest tests` or `pytest tests -W ignore::DeprecationWarning` to ignore deprecation warnings
+From the project folder, run `python3 -m pytest tests` or `python3 -m pytest tests -W ignore::DeprecationWarning` to ignore deprecation warnings
+
+![1711711342335](image/README/1711711342335.png)
 
 Makefile
 --------
