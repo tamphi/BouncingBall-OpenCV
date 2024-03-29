@@ -2,20 +2,23 @@ import numpy as np
 import cv2 as cv
 from src.localize import *
 
-async def display_and_queue_images(track, queue):
+async def display_and_queue_images(track, queue, is_multi = False):
     """
     Using OpenCV to display received images and add frame to client processing queue
 
     Keyword arguments:
     track: received media track
     queue: multiprocessing queue
+    is_multi: True if a new process is invoked to compute prediction, default = False
     """
     frame = None
 
     while True:
         media = await track.recv() #get next frame
         frame = media.to_ndarray(format="bgr24") #convert media to cv format
-        queue.put(frame) #put frame to queue
+        
+        if is_multi == True:
+            queue.put(frame) #put frame to queue
 
         #plot contour
         center, radius = find_contour(frame)
