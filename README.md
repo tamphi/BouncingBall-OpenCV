@@ -47,16 +47,22 @@ From the project folder, run `python3 -m pytest tests` or `python3 -m pytest tes
 
 ![1711711342335](image/README/1711711342335.png)
 
-Makefile
---------
+Docker container and Kubernetes deployment
+------------------------------------------
 
-Simply Docker and Kubernetes commands:
-
-To build client image `$ make build-client-image`
+Makefile for Docker and Kubernetes commands:
 
 To build server image `$ make build-server-image`
 
-For more commands, please checkout the file
+To build client image `$ make build-client-image`
+
+To run server `$ make docker-run-server`
+
+To run client  `$ make docker-run-client`
+
+To deploy server `$ make k8s-deploy-server`
+
+To deploy client  `$ make k8s-deploy-client`
 
 Credits
 -------
