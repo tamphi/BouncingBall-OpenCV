@@ -56,7 +56,7 @@ async def mp_find_contour(queue, mpX, mpY):
 
 def start_process_a(queue, mpX, mpY):
     """
-    Start process to calculate ball position
+    Start multiprocess process_a to calculate ball position
 
     Keyword arguments:
     queue: queue to store frame
