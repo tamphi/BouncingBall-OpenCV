@@ -20,7 +20,7 @@ def current_stamp():
         return 0
     else:
         return int((time.time() - time_start) * 1000000)
-def calculate_error(message, ball_video_track):
+def calculate_error(message, ball_video_track, error_type = "absolute"):
     message = message.strip().split(" ")
     predictedX = float(message[1])
     predictedY = float(message[2])
@@ -29,9 +29,13 @@ def calculate_error(message, ball_video_track):
     errorX = round(float(abs(predictedX-trueX)),3)
     errorY = round(float(abs(predictedY-trueY)),3)
 
+    if (error_type == "percentage"):
+        errorX = round(float(abs(predictedX-trueX)/trueX),3)
+        errorY = round(float(abs(predictedY-trueY)/trueY),3)
+
     prediction_msg = f"(x,y) prediction ({predictedX}, {predictedY}),"
     true_msg = f"true ({trueX}, {trueY})"
-    error_msg = f"error ({errorX}, {errorY})"
+    error_msg = f"{error_type} error ({errorX}, {errorY})"
 
     print(prediction_msg, true_msg, error_msg)
 
@@ -69,7 +73,7 @@ async def run_offer(pc, signaling, recorder):
     def on_message(message):
         # print(f'[SERVER] Received message: {message}')
         if isinstance(message, str) and message.startswith("prediction"):
-            calculate_error(message,ball_video_track)
+            calculate_error(message,ball_video_track,"precentage")
             channel_msg = f"frame {current_stamp()}"
             # print(f"[SERVER] offer: {channel_msg}", 1)
             channel.send(channel_msg)
