@@ -32,8 +32,6 @@ $ python3 client.py
 
 The client will display the frames of the **green** moving ball with the **red** contour enclosing the object. The server will receive answer containing the predicted location of the ball from client, and compute the percentage error of the predicted and true values.
 
-![1711709440605](image/README/1711709440605.png)
-
 Makefile
 --------
 
