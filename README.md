@@ -32,7 +32,7 @@ $ python3 client.py
 
 The client will display the frames of the **green** moving ball with the **red** contour enclosing the object. The server will receive answer containing the predicted location of the ball from client, and compute the percentage error of the predicted and true values.
 
-![1711709440605](image/README/1711709440605.png)
+https://github.com/tamphi/BouncingBall-OpenCV/assets/74994419/41c98e3b-60bc-4b50-9701-253594d15994
 
 Unittest
 --------
