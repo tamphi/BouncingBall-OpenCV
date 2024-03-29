@@ -20,6 +20,20 @@ def current_stamp():
         return 0
     else:
         return int((time.time() - time_start) * 1000000)
+def calculate_error(message, ball_video_track):
+    message = message.strip().split(" ")
+    predictedX = float(message[1])
+    predictedY = float(message[2])
+    trueX = float(ball_video_track.x)
+    trueY = float(ball_video_track.y)
+    errorX = round(float(abs(predictedX-trueX)),3)
+    errorY = round(float(abs(predictedY-trueY)),3)
+
+    prediction_msg = f"(x,y) prediction ({predictedX}, {predictedY}),"
+    true_msg = f"true ({trueX}, {trueY})"
+    error_msg = f"error ({errorX}, {errorY})"
+
+    print(prediction_msg, true_msg, error_msg)
 
 async def run_offer(pc, signaling, recorder):
     """
@@ -33,6 +47,8 @@ async def run_offer(pc, signaling, recorder):
 
     #create data channel
     channel = pc.createDataChannel("chat")
+    #intialize ball object
+    ball_video_track = BallVideoStreamTrack()
 
     @pc.on('track')
     def on_track(track):
@@ -46,24 +62,26 @@ async def run_offer(pc, signaling, recorder):
             
     @channel.on("open")
     def on_open():
-        msg = f"image {current_stamp()}"
-        channel.send(msg)
+        channel_msg = f"frame {current_stamp()}"
+        channel.send(channel_msg)
 
     @channel.on("message")
     def on_message(message):
-        if isinstance(message, str) and message.startswith("value"):
-            print(message)
-            msg = f"image {current_stamp()}"
-            channel.send(msg)
+        # print(f'[SERVER] Received message: {message}')
+        if isinstance(message, str) and message.startswith("prediction"):
+            calculate_error(message,ball_video_track)
+            channel_msg = f"frame {current_stamp()}"
+            # print(f"[SERVER] offer: {channel_msg}", 1)
+            channel.send(channel_msg)
         
     await signaling.connect()
     #add media
-    pc.addTrack(BallVideoStreamTrack())
+    pc.addTrack(ball_video_track)
     # send offer
     await pc.setLocalDescription(await pc.createOffer())
     await signaling.send(pc.localDescription)
-
     await consume_signaling(pc, signaling)
+    print('[SERVER] send tracks to the client')
 
 if __name__ == "__main__":
 
