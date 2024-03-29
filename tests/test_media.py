@@ -4,38 +4,38 @@ sys.path.append("..")
 from src.media import BallVideoStreamTrack
 
 class TestMedia(unittest.TestCase):
+
+    def setUp(self) -> None:
+        self.ball = BallVideoStreamTrack()
+        return super().setUp()
+    
+    def tearDown(self) -> None:
+        return super().tearDown()
+    
     def test_radius_min_val(self):
-        ball = BallVideoStreamTrack()
-        self.assertGreater(ball.radius, 0)
+        self.assertGreater(self.ball.radius, 0)
     
     def test_radius_max_val(self):
-        ball = BallVideoStreamTrack()
-        diameter = int(ball.radius*2)
-        self.assertLessEqual(diameter, min(ball.width,ball.height))
+        diameter = int(self.ball.radius*2)
+        self.assertLessEqual(diameter, min(self.ball.width,self.ball.height))
 
     def test_x_min_val(self):
-        ball = BallVideoStreamTrack()
-        self.assertGreaterEqual(ball.x, ball.radius)
+        self.assertGreaterEqual(self.ball.x, self.ball.radius)
 
     def test_y_min_val(self):
-        ball = BallVideoStreamTrack()
-        self.assertGreaterEqual(ball.y, ball.radius)
+        self.assertGreaterEqual(self.ball.y, self.ball.radius)
     
     def test_x_max_val(self):
-        ball = BallVideoStreamTrack()
-        self.assertLessEqual(ball.x, ball.width - ball.radius)
+        self.assertLessEqual(self.ball.x, self.ball.width - self.ball.radius)
 
     def test_y_max_val(self):
-        ball = BallVideoStreamTrack()
-        self.assertLessEqual(ball.y, ball.height - ball.radius)
+        self.assertLessEqual(self.ball.y, self.ball.height - self.ball.radius)
 
     def test_width_min_val(self):
-        ball = BallVideoStreamTrack()
-        self.assertGreaterEqual(ball.width, 240)
+        self.assertGreaterEqual(self.ball.width, 240)
 
     def test_height_min_val(self):
-        ball = BallVideoStreamTrack()
-        self.assertGreaterEqual(ball.height, 240)
+        self.assertGreaterEqual(self.ball.height, 240)
         
 
 if __name__ == '__main__':
