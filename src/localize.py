@@ -3,6 +3,8 @@ import numpy as np
 import imutils
 import argparse
 import time
+import asyncio
+from concurrent.futures import ProcessPoolExecutor
 
 #tutorial: https://pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/
 
@@ -40,11 +42,35 @@ def find_contour(frame):
 
     return coordinates, radius
 
-def mp_find_contour():
+async def mp_find_contour(queue, mpX, mpY):
     """
-    Call find_contour() and update ball position (x,y) for each frame in queue
+    Multiprocess function to find and update ball position (x,y) for each frame in queue
     """
-    pass
+    while True:
+        executor = ProcessPoolExecutor(max_workers=1)
+        frame = queue.get(True) #blocking call
+        center, _ = find_contour(frame)
+        mpX.value = center[0]
+        mpY.value = center[1]
+
+
+def start_process_a(queue, mpX, mpY):
+    """
+    Start process to calculate ball position
+
+    Keyword arguments:
+    queue: queue to store frame
+    mpX: x coordinate of ball as mp.Value
+    mpY: y coordinate of ball as mp.Value
+    """
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(mp_find_contour(queue, mpX, mpY))
+    except KeyboardInterrupt:
+        pass
+    finally:
+        loop.close()
+   
 
 if __name__ == "__main__":
     """

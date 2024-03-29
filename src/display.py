@@ -13,9 +13,9 @@ async def display_and_queue_images(track, queue):
     frame = None
 
     while True:
-        media = await track.recv()
-        frame = media.to_ndarray(format="bgr24")
-        # queue.put(media)
+        media = await track.recv() #get next frame
+        frame = media.to_ndarray(format="bgr24") #convert media to cv format
+        queue.put(frame) #put frame to queue
 
         #plot contour
         center, radius = find_contour(frame)
