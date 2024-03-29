@@ -2,7 +2,6 @@ import unittest
 import sys
 import cv2 as cv
 import numpy as np
-sys.path.append("..")
 from src.localize import find_contour
 
 class TestLocalize(unittest.TestCase):

@@ -1,6 +1,5 @@
 import unittest
 import sys
-sys.path.append("..")
 from src.media import BallVideoStreamTrack
 
 class TestMedia(unittest.TestCase):
