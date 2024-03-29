@@ -5,3 +5,4 @@ multiprocess
 pytest
 imutils
 asyncio
+pytest
