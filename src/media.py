@@ -48,18 +48,18 @@ class BallVideoStreamTrack(VideoStreamTrack):
         """
         Set animation attributes: background color, height & width, ball radius & color, move speed
         """
-        self.height, self.width = 512, 1024
+        self.height, self.width = 600, 800
 
         # ball attr
-        self.radius = 20
+        self.radius = 40
         self.color = (0, 255, 0) # bgr value
 
         #starting point
         self.x = np.random.randint(self.radius,self.width - self.radius)
         self.y = np.random.randint(self.radius,self.height - self.radius)
         # ball speed 
-        self.dx = 8 # x-axis
-        self.dy = 8 # y-axis
+        self.dx = 4 # x-axis
+        self.dy = 4 # y-axis
         
         #canvas
         self.background = np.zeros((self.height, self.width,3),np.uint8)
