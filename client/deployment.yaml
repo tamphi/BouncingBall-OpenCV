@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nimble-hackathon-client
+  labels:
+    app: nimble-hackathon-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nimble-hackathon-client
+  template:
+    metadata:
+      labels:
+        app: nimble-hackathon-client
+    spec:
+      containers:
+      - name: nimble-hackathon-client
+        image: nimble-hackathon-client:latest 
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          hostPort: 8080
+          protocol: TCP
